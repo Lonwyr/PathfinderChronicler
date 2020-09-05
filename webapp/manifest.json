@@ -5,7 +5,8 @@
     "type": "application",
     "i18n": {
       "bundleUrl": "i18n/i18n.properties",
-      "supportedLocales": []
+      "supportedLocales": [""],
+      "fallbackLocale": ""
     },
     "applicationVersion": {
       "version": "1.0.0"
@@ -19,10 +20,6 @@
       "version": "1.40.12"
     },
     "dataSources": {
-      "scenarios": {
-        "uri": "data/scenarios.json",
-        "type": "JSON"
-      },
       "data": {
         "uri": "data/data.json",
         "type": "JSON"
@@ -81,10 +78,6 @@
         "settings": {
           "bundleName": "com.lonwyr.PfsChronicleFiller.i18n.i18n"
         }
-      },
-      "scenarios": {
-        "type": "sap.ui.model.json.JSONModel",
-        "dataSource": "scenarios"
       },
       "data": {
         "type": "sap.ui.model.json.JSONModel",

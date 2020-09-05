@@ -40,7 +40,7 @@ sap.ui.define([
 		})
 	}
 
-	function addHeaderTexts(helveticaFont, page, player, characterData) {
+	function addHeaderTexts(helveticaFont, page, player, type, characterData) {
 		const headerY = 666
 
 		if (player) {
@@ -48,19 +48,9 @@ sap.ui.define([
 				helveticaFont,
 				page,
 				{
-					text: player.gm ? player.name : player.name + "(GM)",
-					size: 12,
+					text: type === "player" ? player.name : player.name + "(GM)",
+					size: 10,
 					x: 95,
-					y: headerY
-				}
-			)
-			drawCenteredText(
-				helveticaFont,
-				page,
-				{
-					text: characterData.name,
-					size: 12,
-					x: 220,
 					y: headerY
 				}
 			)
@@ -77,6 +67,16 @@ sap.ui.define([
 		}
 
 		if (characterData) {
+			drawCenteredText(
+				helveticaFont,
+				page,
+				{
+					text: characterData.name,
+					size: 10,
+					x: 220,
+					y: headerY
+				}
+			)
 			page.drawText(characterData.id.substring(1), {
 				size: 12,
 				x: 363,
@@ -121,7 +121,6 @@ sap.ui.define([
 		}
 
 		if (fame) {
-
 			drawCenteredText(
 				helveticaFont,
 				page,
@@ -139,13 +138,12 @@ sap.ui.define([
 		const gmSectionY = 55
 
 		if (event) {
-
 			drawCenteredText(
 				helveticaFont,
 				page,
 				{
 					text: event.name,
-					size: 12,
+					size: 10,
 					x: 100,
 					y: gmSectionY
 				}
@@ -164,7 +162,6 @@ sap.ui.define([
 		}
 
 		if (date) {
-
 			drawCenteredText(
 				helveticaFont,
 				page,
@@ -177,7 +174,6 @@ sap.ui.define([
 				)
 		}
 		if (gm) {
-
 			drawCenteredText(
 				helveticaFont,
 				page,
@@ -316,8 +312,8 @@ sap.ui.define([
 
 			const { degrees, PDFDocument, rgb, StandardFonts } = PDFLib
 
-			const gmId = printOptions.players.find(player => player.gm).playerId
-			const gm = findById(data.players, gmId)
+			const gmPlayer = printOptions.players.find(player => {return player.type === "gm"})
+			const gm = gmPlayer && findById(data.players, gmPlayer.playerId)
 
 			const eventKey = this.byId("eventSelect").getSelectedKey()
 			const event = findById(data.events, eventKey)
@@ -344,6 +340,7 @@ sap.ui.define([
 							helveticaFont,
 							page,
 							playerData,
+							player.type,
 							characterData
 						)
 						addFactionReputationTexts(
@@ -355,7 +352,7 @@ sap.ui.define([
 							page,
 							printOptions.xp,
 							treasures.bundleValues,
-							characterData.level,
+							characterData && characterData.level,
 							printOptions.treasureBundles,
 							printOptions.fame
 

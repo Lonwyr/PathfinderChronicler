@@ -23,6 +23,11 @@
       "name": "The Dude",
       "level": 1,
       "faction": "HH"
+    },{
+      "id": "2002",
+      "name": "The Barbarian",
+      "level": 3,
+      "faction": "HH"
     }]
   }]
 }
