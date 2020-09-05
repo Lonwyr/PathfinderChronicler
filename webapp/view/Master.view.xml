@@ -1,0 +1,8 @@
+<mvc:View xmlns="sap.m"
+          xmlns:mvc="sap.ui.core.mvc"
+          xmlns:unified="sap.ui.unified"
+          controllerName="com.lonwyr.PfsChronicleFiller.controller.Master"
+          xmlns:semantic="sap.f.semantic">
+    <semantic:SemanticPage id="page">
+    </semantic:SemanticPage>
+</mvc:View>

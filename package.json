@@ -1,0 +1,23 @@
+{
+  "name": "PathfinderConicler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lonwyr/PathfinderChronicler.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lonwyr/PathfinderChronicler/issues"
+  },
+  "homepage": "https://github.com/Lonwyr/PathfinderChronicler#readme",
+  "dependencies": {
+    "@ui5/cli": "^2.2.6"
+  }
+}
