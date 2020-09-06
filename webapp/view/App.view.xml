@@ -1,14 +1,6 @@
-<mvc:View controllerName="com.lonwyr.PfsChronicleFiller.controller.App"
+<mvc:View controllerName="com.lonwyr.PathfinderChronicler.controller.App"
 		  displayBlock="true"
 		  xmlns:mvc="sap.ui.core.mvc"
-		  xmlns="sap.m"
-		  xmlns:f="sap.f">
-	<Shell id="shell">
-		<App id="app">
-			<f:FlexibleColumnLayout
-					id="flexibleColumnLayout"
-					backgroundDesign="Translucent"
-			/>
-		</App>
-	</Shell>
+		  xmlns="sap.m">
+	<App id="app" />
 </mvc:View>

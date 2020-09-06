@@ -1,0 +1,23 @@
+<core:FragmentDefinition
+        xmlns="sap.m"
+        xmlns:f="sap.ui.layout.form"
+        xmlns:core="sap.ui.core" >
+    <Dialog
+            id="editEvent"
+            title="{i18n>editEvent}" >
+        <f:SimpleForm>
+            <f:content>
+                <Label text="{i18n>name}" />
+                <Input value="{data>name}" />
+                <Label text="{i18n>id}" />
+                <Input value="{data>id}" />
+            </f:content>
+        </f:SimpleForm>
+        <beginButton>
+            <Button type="Emphasized" text="{i18n>ok}" press=".closeEditEvent" />
+        </beginButton>
+        <endButton>
+            <Button type="Reject" icon="sap-icon://delete" press=".deleteEvent" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

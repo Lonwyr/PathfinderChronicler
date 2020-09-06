@@ -3,30 +3,15 @@ sap.ui.define([
 ], function (BaseController) {
 	"use strict";
 
-	const mainPages = [
-		"master",
-		"createSheets",
-		"maintainData"
-	];
-
-	return BaseController.extend("com.lonwyr.PfsChronicleFiller.controller.App", {
+	return BaseController.extend("com.lonwyr.PathfinderChronicler.controller.App", {
 		onInit: function () {
-			this.getRouter().attachRouteMatched(this._onRouteMatched.bind(this));
+			this.getRouter().attachRouteMatched(this._onRouteMatched.bind(this))
 
 		},
 
 		_onRouteMatched: function (oEvent) {
-			let layout = "TwoColumnsMidExpanded";
-			const routeName = oEvent.getParameter("name");
-
-			if (mainPages.includes(routeName))
-				layout = "OneColumn";
-
-			if (routeName.startsWith("characterCreationSchoolDetails"))
-				layout = "ThreeColumnsEndExpanded";
-
-			let flexibleColumnLayout = this.getView().byId("flexibleColumnLayout");
-			flexibleColumnLayout.setLayout(layout);
-		},
+			const routeName = oEvent.getParameter("name")
+			this.getModel("navigation").setData(routeName)
+		}
 	});
 });

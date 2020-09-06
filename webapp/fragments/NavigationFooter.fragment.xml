@@ -1,0 +1,17 @@
+<core:FragmentDefinition
+        xmlns="sap.m"
+        xmlns:f="sap.ui.layout.form"
+        xmlns:core="sap.ui.core" >
+    <OverflowToolbar>
+        <ToolbarSpacer/>
+        <SegmentedButton selectedKey="{navigation>/}" selectionChange=".navigate" >
+            <items>
+                <SegmentedButtonItem text="{i18n>info}" key="master" />
+                <SegmentedButtonItem text="{i18n>maintainEvents}" key="maintainEvents" />
+                <SegmentedButtonItem text="{i18n>maintainPlayers}" key="maintainPlayers" />
+                <SegmentedButtonItem text="{i18n>createSheets}" key="createSheets" />
+            </items>
+        </SegmentedButton>
+        <ToolbarSpacer/>
+    </OverflowToolbar>
+</core:FragmentDefinition>

@@ -1,7 +1,7 @@
 {
   "_version": "1.12.0",
   "sap.app": {
-    "id": "com.lonwyr.PfsChronicleFiller",
+    "id": "com.lonwyr.PathfinderChronicler",
     "type": "application",
     "i18n": {
       "bundleUrl": "i18n/i18n.properties",
@@ -55,7 +55,7 @@
   "sap.ui5": {
     "flexEnabled": false,
     "rootView": {
-      "viewName": "com.lonwyr.PfsChronicleFiller.view.App",
+      "viewName": "com.lonwyr.PathfinderChronicler.view.App",
       "type": "XML",
       "async": true,
       "id": "App"
@@ -76,7 +76,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "com.lonwyr.PfsChronicleFiller.i18n.i18n"
+          "bundleName": "com.lonwyr.PathfinderChronicler.i18n.i18n"
         }
       },
       "data": {
@@ -90,6 +90,9 @@
       "treasures": {
         "type": "sap.ui.model.json.JSONModel",
         "dataSource": "treasures"
+      },
+      "navigation": {
+        "type": "sap.ui.model.json.JSONModel"
       }
     },
     "resources": {
@@ -101,12 +104,12 @@
     },
     "routing": {
       "config": {
-        "routerClass": "sap.f.routing.Router",
+        "routerClass": "sap.m.routing.Router",
         "viewType": "XML",
         "async": true,
-        "viewPath": "com.lonwyr.PfsChronicleFiller.view",
-        "controlAggregation": "beginColumnPages",
-        "controlId": "flexibleColumnLayout",
+        "viewPath": "com.lonwyr.PathfinderChronicler.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
         "bypassed": {
           "target": "notFound"
         }
@@ -118,18 +121,18 @@
           "target": ["master"]
         },
         {
-          "name": "maintainData",
-          "pattern": "/data",
-          "target": ["maintainData"]
+          "name": "maintainEvents",
+          "pattern": "events",
+          "target": ["maintainEvents"]
         },
         {
-          "name": "maintainDataCharacters",
-          "pattern": "/data/player/{playerID}",
-          "target": ["maintainCharacters"]
+          "name": "maintainPlayers",
+          "pattern": "players",
+          "target": ["maintainPlayers"]
         },
         {
           "name": "createSheets",
-          "pattern": "/createSheets",
+          "pattern": "createSheets",
           "target": ["createSheets"]
         }
       ],
@@ -137,23 +140,23 @@
         "master": {
           "viewType": "XML",
           "viewId": "master",
-          "viewName": "Master"
+          "viewName": "Master",
+          "viewLevel": 1
+        },
+        "maintainEvents": {
+          "viewName": "MaintainEvents",
+          "viewId": "maintainEvents",
+          "viewLevel": 2
+        },
+        "maintainPlayers": {
+          "viewName": "MaintainPlayers",
+          "viewId": "maintainPlayers",
+          "viewLevel": 2
         },
         "createSheets": {
           "viewName": "CreateSheets",
           "viewId": "createSheets",
-          "viewLevel": 1
-        },
-        "maintainData": {
-          "viewName": "MaintainData",
-          "viewId": "maintainData",
-          "viewLevel": 1
-        },
-        "maintainCharacters": {
-          "viewName": "MaintainCharacters",
-          "viewId": "maintainCharacters",
-          "viewLevel": 2,
-          "controlAggregation": "endColumnPages"
+          "viewLevel": 4
         }
       }
     }

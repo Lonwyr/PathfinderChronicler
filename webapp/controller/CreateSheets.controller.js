@@ -187,7 +187,54 @@ sap.ui.define([
 		}
 	}
 
-	return BaseController.extend("com.lonwyr.PfsChronicleFiller.controller.CreateSheets", {
+	async function createChronicleForCharacter(PDFDocument, sFileContent, StandardFonts, data, player, printOptions, treasures, event, gm) {
+		const pdfDoc = await PDFDocument.load(sFileContent, {ignoreEncryption: true})
+		// Embed the Helvetica font
+		const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
+
+		// Get the first page of the document
+		const pages = pdfDoc.getPages()
+		const page = pages[0]
+
+		const playerData = findById(data.players, player.playerId)
+		const characterData = playerData && findById(playerData.characters, player.characterId)
+
+		addHeaderTexts(
+			helveticaFont,
+			page,
+			playerData,
+			player.type,
+			characterData
+		)
+		addFactionReputationTexts(
+			helveticaFont,
+			page
+		)
+		addRewardTexts(
+			helveticaFont,
+			page,
+			printOptions.xp,
+			treasures.bundleValues,
+			characterData && characterData.level,
+			printOptions.treasureBundles,
+			printOptions.fame
+		)
+		addGmTexts(
+			helveticaFont,
+			page,
+			event,
+			printOptions.date,
+			gm
+		)
+
+		// Serialize the PDFDocument to bytes (a Uint8Array)
+		const pdfBytes = await pdfDoc.save()
+
+		// Trigger the browser to download the PDF document
+		download(pdfBytes, "pdf-lib_modification_example.pdf", "application/pdf")
+	}
+
+	return BaseController.extend("com.lonwyr.PathfinderChronicler.controller.CreateSheets", {
 		formatPlayerTitle: (option, players) => {
 			return findById(players, option.playerId).name
 		},
@@ -212,7 +259,7 @@ sap.ui.define([
 				// load asynchronous XML fragment
 				Fragment.load({
 					id: view.getId(),
-					name: "com.lonwyr.PfsChronicleFiller.fragments.AddPlayerToSession",
+					name: "com.lonwyr.PathfinderChronicler.fragments.AddPlayerToSession",
 					controller: this
 				}).then( dialog => {
 					view.addDependent(dialog)
@@ -282,7 +329,7 @@ sap.ui.define([
 				const view = this.getView()
 				dialog = await Fragment.load({
 					id: view.getId(),
-					name: "com.lonwyr.PfsChronicleFiller.fragments.SelectCharacterForSession",
+					name: "com.lonwyr.PathfinderChronicler.fragments.SelectCharacterForSession",
 					controller: this
 				})
 				view.addDependent(dialog)
@@ -325,52 +372,11 @@ sap.ui.define([
 
 					printOptions.players.map(async (player) => {
 						// Load a PDFDocument from the existing PDF bytes
-						const pdfDoc = await PDFDocument.load(sFileContent, { ignoreEncryption: true })
-						// Embed the Helvetica font
-						const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
-
-						// Get the first page of the document
-						const pages = pdfDoc.getPages()
-						const page = pages[0]
-
-						const playerData = findById(data.players, player.playerId)
-						const characterData = findById(playerData.characters, player.characterId)
-
-						addHeaderTexts(
-							helveticaFont,
-							page,
-							playerData,
-							player.type,
-							characterData
-						)
-						addFactionReputationTexts(
-							helveticaFont,
-							page
-						)
-						addRewardTexts(
-							helveticaFont,
-							page,
-							printOptions.xp,
-							treasures.bundleValues,
-							characterData && characterData.level,
-							printOptions.treasureBundles,
-							printOptions.fame
-
-						)
-						addGmTexts(
-							helveticaFont,
-							page,
-							event,
-							printOptions.date,
-							gm
-						)
-
-						// Serialize the PDFDocument to bytes (a Uint8Array)
-						const pdfBytes = await pdfDoc.save()
-
-						// Trigger the browser to download the PDF document
-						download(pdfBytes, "pdf-lib_modification_example.pdf", "application/pdf")
+						createChronicleForCharacter(PDFDocument, sFileContent, StandardFonts, data, player, printOptions, treasures, event, gm);
 					})
+					if (printOptions.additionalSheet) {
+						createChronicleForCharacter(PDFDocument, sFileContent, StandardFonts, data, {type: "player"}, printOptions, treasures, event, gm);
+					}
 
 				}
 				oReader.readAsArrayBuffer(file)

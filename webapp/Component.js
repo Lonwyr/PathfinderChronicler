@@ -6,7 +6,7 @@ sap.ui.define([
 ) {
 	"use strict";
 
-	return UIComponent.extend("com.lonwyr.PfsChronicleFiller.Component", {
+	return UIComponent.extend("com.lonwyr.PathfinderChronicler.Component", {
 
 		metadata: {
 			manifest: "json"

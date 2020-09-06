@@ -3,9 +3,7 @@ sap.ui.define([
 ], function (Controller) {
 	"use strict";
 
-	return Controller.extend("com.lonwyr.PfsChronicleFiller.controller.BaseController", {
-
-		backNavigationRoute: "characterCreation",
+	return Controller.extend("com.lonwyr.PathfinderChronicler.controller.BaseController", {
 
 		getRouter: function () {
 			return this.getOwnerComponent().getRouter();
@@ -19,8 +17,8 @@ sap.ui.define([
 			return this.getView().getModel(sName);
 		},
 
-		navToMain: function () {
-			this.getRouter().navTo(this.backNavigationRoute);
+		navigate: function (event) {
+			this.getRouter().navTo(event.getSource().getSelectedKey());
 		}
 	});
 });
