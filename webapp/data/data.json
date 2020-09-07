@@ -1,33 +1,4 @@
 {
-  "events": [{
-    "id": "123",
-    "name": "123 Event"
-  },{
-    "id": "456",
-    "name": "456 Event"
-  }],
-  "players": [{
-    "id": "1",
-    "name": "Alice",
-    "characters": [{
-      "id": "2001",
-      "name": "The Lady",
-      "level": 2,
-      "faction": "GA"
-    }]
-  }, {
-    "id": "2",
-    "name": "Bob",
-    "characters": [{
-      "id": "2001",
-      "name": "The Dude",
-      "level": 1,
-      "faction": "HH"
-    },{
-      "id": "2002",
-      "name": "The Barbarian",
-      "level": 3,
-      "faction": "HH"
-    }]
-  }]
+  "events": [],
+  "players": []
 }

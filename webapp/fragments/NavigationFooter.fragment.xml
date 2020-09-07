@@ -1,6 +1,6 @@
 <core:FragmentDefinition
         xmlns="sap.m"
-        xmlns:f="sap.ui.layout.form"
+        xmlns:unified="sap.ui.unified"
         xmlns:core="sap.ui.core" >
     <OverflowToolbar>
         <ToolbarSpacer/>
@@ -13,5 +13,13 @@
             </items>
         </SegmentedButton>
         <ToolbarSpacer/>
+        <unified:FileUploader
+                uploadUrl = ""
+                buttonText = "{i18n>loadConfiguration}"
+                fileType = "pfcconfig"
+                buttonOnly = "true"
+                icon = "sap-icon://upload"
+                change = ".loadConfig" />
+        <Button icon="sap-icon://save" text="{i18n>saveConfiguration}" press="downloadConfig" />
     </OverflowToolbar>
 </core:FragmentDefinition>
