@@ -1,10 +1,10 @@
 specVersion: '2.1'
 metadata:
-  name: arcane_codex
+  name: pathfinder_chronicler
 type: application
 framework:
   name: SAPUI5
-  version: "1.78.2"
+  version: "1.81.1"
   libraries:
     - name: sap.f
     - name: sap.m
