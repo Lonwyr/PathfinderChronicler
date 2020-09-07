@@ -1,0 +1,1 @@
+sap.ui.define(["./BaseController"],function(t){"use strict";return t.extend("com.lonwyr.PathfinderChronicler.controller.App",{onInit:function(){this.getRouter().attachRouteMatched(this._onRouteMatched.bind(this))},_onRouteMatched:function(t){const e=t.getParameter("name");this.getModel("navigation").setData(e)}})});

@@ -1,0 +1,78 @@
+<mvc:View xmlns="sap.m"
+          xmlns:mvc="sap.ui.core.mvc"
+          xmlns:f="sap.f"
+          xmlns:core="sap.ui.core"
+          xmlns:card="sap.f.cards"
+          controllerName="com.lonwyr.PathfinderChronicler.controller.MaintainPlayers" >
+    <Page
+            floatingFooter="true"
+            titleAlignment="Center"
+            title="{i18n>maintainPlayers}">
+        <f:GridContainer
+                class="sapUiSmallMargin">
+            <f:layout>
+                <f:GridContainerSettings rowSize="84px" columnSize="84px" gap="8px" />
+            </f:layout>
+            <f:layoutXS>
+                <f:GridContainerSettings rowSize="70px" columnSize="70px" gap="8px" />
+            </f:layoutXS>
+            <f:Card>
+                <f:layoutData>
+                    <f:GridContainerItemLayoutData columns="4" />
+                </f:layoutData>
+                <f:header>
+                    <card:Header
+                            title="{i18n>createNew}"
+                            iconSrc="sap-icon://add"
+                            press=".openAddPlayer" />
+                </f:header>
+            </f:Card>
+        </f:GridContainer>
+        <f:GridContainer
+                class="sapUiSmallMargin"
+                items="{data>/players}">
+            <f:layout>
+                <f:GridContainerSettings rowSize="84px" columnSize="84px" gap="8px" />
+            </f:layout>
+            <f:layoutXS>
+                <f:GridContainerSettings rowSize="70px" columnSize="70px" gap="8px" />
+            </f:layoutXS>
+
+            <f:Card>
+                <f:layoutData>
+                    <f:GridContainerItemLayoutData columns="4" />
+                </f:layoutData>
+                <f:header>
+                    <card:Header title="{data>name}"
+                                 subtitle="{data>id}"
+                                 iconSrc="sap-icon://customer"
+                                 press=".editPlayer" />
+                </f:header>
+                <f:content>
+                    <VBox
+                            width="100%">
+                        <List
+                                showSeparators="None"
+                                items="{data>characters}">
+                            <ObjectListItem
+                                    title="{data>name}"
+                                    type="Active"
+                                    press=".editCharacter"
+                                    number="{data>level}"
+                                    numberUnit="{i18n>level}">
+                                <ObjectAttribute text="{data>id}" />
+                            </ObjectListItem>
+                        </List>
+                        <Button
+                                icon="sap-icon://add"
+                                class="addCharacterButton"
+                                press=".openAddCharacter" />
+                    </VBox>
+                </f:content>
+            </f:Card>
+        </f:GridContainer>
+        <footer>
+            <core:Fragment fragmentName="com.lonwyr.PathfinderChronicler.fragments.NavigationFooter" type="XML" />
+        </footer>
+    </Page>
+</mvc:View>

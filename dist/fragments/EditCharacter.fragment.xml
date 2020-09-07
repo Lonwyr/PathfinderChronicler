@@ -1,0 +1,31 @@
+<core:FragmentDefinition
+        xmlns="sap.m"
+        xmlns:f="sap.ui.layout.form"
+        xmlns:core="sap.ui.core" >
+    <Dialog
+            id="editCharacter"
+            title="{i18n>editCharacter}" >
+        <f:SimpleForm>
+            <f:content>
+                <Label text="{i18n>name}" />
+                <Input value="{data>name}" />
+                <Label text="{i18n>id}" />
+                <Input value="{data>id}" />
+                <Label text="{i18n>level}" />
+                <Slider
+                        value="{data>level}"
+                        min="1"
+                        max="20"
+                        inputsAsTooltips="true"
+                        enableTickmarks="true"
+                        class="sapUiSmallMarginBottom" />
+            </f:content>
+        </f:SimpleForm>
+        <beginButton>
+            <Button type="Emphasized" text="{i18n>ok}" press=".closeEditCharacter" />
+        </beginButton>
+        <endButton>
+            <Button type="Reject" icon="sap-icon://delete" press=".deleteCharacter" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

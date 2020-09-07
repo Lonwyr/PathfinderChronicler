@@ -1,0 +1,33 @@
+<core:FragmentDefinition
+        xmlns="sap.m"
+        xmlns:f="sap.ui.layout.form"
+        xmlns:core="sap.ui.core" >
+    <Dialog
+            id="addCharacter"
+            title="{i18n>addCharacter}" >
+        <f:SimpleForm>
+            <f:content>
+                <Label text="{i18n>name}" />
+                <Input id="addCharacter_name" />
+                <Label text="{i18n>id}" />
+                <Input id="addCharacter_id" />
+                <Label text="{i18n>level}" />
+                <Slider id="addCharacter_level"
+                        min="1"
+                        max="20"
+                        inputsAsTooltips="true"
+                        enableTickmarks="true"
+                        class="sapUiSmallMarginBottom" />
+            </f:content>
+        </f:SimpleForm>
+        <beginButton>
+            <Button type="Emphasized" text="{i18n>ok}" press=".addCharacter" />
+        </beginButton>
+        <endButton>
+            <Button text="{i18n>cancel}" press=".closeAddCharacter" />
+        </endButton>
+        <customData>
+            <core:CustomData key="bindingContextPath" />
+        </customData>
+    </Dialog>
+</core:FragmentDefinition>

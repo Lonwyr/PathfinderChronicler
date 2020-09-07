@@ -1,0 +1,18 @@
+<core:FragmentDefinition
+        xmlns="sap.m"
+        xmlns:core="sap.ui.core" >
+    <SelectDialog
+            id="selectCharacter"
+            title="{i18n>selectCharacter}"
+            items="{data>characters}"
+            search=".search"
+            confirm=".selectCharacter">
+        <StandardListItem
+                title="{data>name}"
+                description="{data>id}"
+                type="Active" />
+        <customData>
+            <core:CustomData key="printOptionsBindingPath" />
+        </customData>
+    </SelectDialog>
+</core:FragmentDefinition>

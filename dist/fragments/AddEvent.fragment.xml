@@ -1,0 +1,23 @@
+<core:FragmentDefinition
+        xmlns="sap.m"
+        xmlns:f="sap.ui.layout.form"
+        xmlns:core="sap.ui.core" >
+    <Dialog
+            id="addEvent"
+            title="{i18n>addEvent}" >
+        <f:SimpleForm>
+            <f:content>
+                <Label text="{i18n>name}" />
+                <Input id="addEvent_name" />
+                <Label text="{i18n>id}" />
+                <Input id="addEvent_id" />
+            </f:content>
+        </f:SimpleForm>
+        <beginButton>
+            <Button type="Emphasized" text="{i18n>ok}" press=".addEvent" />
+        </beginButton>
+        <endButton>
+            <Button text="{i18n>cancel}" press=".closeAddEvent" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,164 @@
+{
+  "_version": "1.12.0",
+  "sap.app": {
+    "id": "com.lonwyr.PathfinderChronicler",
+    "type": "application",
+    "i18n": {
+      "bundleUrl": "i18n/i18n.properties",
+      "supportedLocales": [""],
+      "fallbackLocale": ""
+    },
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "ach": "ach",
+    "sourceTemplate": {
+      "id": "html5moduletemplates.basicSAPUI5ApplicationProjectModule",
+      "version": "1.40.12"
+    },
+    "dataSources": {
+      "data": {
+        "uri": "data/data.json",
+        "type": "JSON"
+      },
+      "printOptions": {
+        "uri": "data/printOptions.json",
+        "type": "JSON"
+      },
+      "treasures": {
+        "uri": "data/treasures.json",
+        "type": "JSON"
+      }
+    }
+  },
+
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+
+  "sap.ui5": {
+    "flexEnabled": false,
+    "rootView": {
+      "viewName": "com.lonwyr.PathfinderChronicler.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    },
+    "dependencies": {
+      "minUI5Version": "1.65.6",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.m": {},
+        "sap.ui.layout": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.lonwyr.PathfinderChronicler.i18n.i18n"
+        }
+      },
+      "data": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "data"
+      },
+      "printOptions": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "printOptions"
+      },
+      "treasures": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "treasures"
+      },
+      "navigation": {
+        "type": "sap.ui.model.json.JSONModel"
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "com.lonwyr.PathfinderChronicler.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "bypassed": {
+          "target": "notFound"
+        }
+      },
+      "routes": [
+        {
+          "name": "welcome",
+          "pattern": "",
+          "target": ["welcome"]
+        },
+        {
+          "name": "maintainEvents",
+          "pattern": "events",
+          "target": ["maintainEvents"]
+        },
+        {
+          "name": "maintainPlayers",
+          "pattern": "players",
+          "target": ["maintainPlayers"]
+        },
+        {
+          "name": "createSheets",
+          "pattern": "createSheets",
+          "target": ["createSheets"]
+        }
+      ],
+      "targets": {
+        "welcome": {
+          "viewType": "XML",
+          "viewId": "welcome",
+          "viewName": "Welcome",
+          "viewLevel": 1
+        },
+        "maintainEvents": {
+          "viewName": "MaintainEvents",
+          "viewId": "maintainEvents",
+          "viewLevel": 2
+        },
+        "maintainPlayers": {
+          "viewName": "MaintainPlayers",
+          "viewId": "maintainPlayers",
+          "viewLevel": 2
+        },
+        "createSheets": {
+          "viewName": "CreateSheets",
+          "viewId": "createSheets",
+          "viewLevel": 4
+        }
+      }
+    }
+  }
+}

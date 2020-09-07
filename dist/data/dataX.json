@@ -1,0 +1,31 @@
+{
+  "events": [{
+    "id": "123",
+    "name": "123 Event"
+  },{
+    "id": "456",
+    "name": "456 Event"
+  },{
+    "id": "2700781",
+    "name": "TTS remote"
+  }],
+  "players": [{
+    "id": "115458",
+    "name": "Christian",
+    "characters": [{
+      "id": "2001",
+      "name": "The Dude",
+      "level": 2,
+      "faction": "GA"
+    }]
+  }, {
+    "id": "134143",
+    "name": "Lisa",
+    "characters": [{
+      "id": "2001",
+      "name": "The Lady",
+      "level": 2,
+      "faction": "HH"
+    }]
+  }]
+}
