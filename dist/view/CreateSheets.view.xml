@@ -1,0 +1,121 @@
+<mvc:View xmlns="sap.m"
+          xmlns:mvc="sap.ui.core.mvc"
+          xmlns:core="sap.ui.core"
+          xmlns:unified="sap.ui.unified"
+          xmlns:form="sap.ui.layout.form"
+          controllerName="com.lonwyr.PathfinderChronicler.controller.CreateSheets" >
+    <Page   id="page"
+            floatingFooter="true"
+            titleAlignment="Center"
+            title="{i18n>createSheets}" >
+        <VBox width="100%" >
+            <form:SimpleForm
+                    labelSpanM="12"
+                    labelSpanL="12"
+                    labelSpanXL="12" >
+                <Title text="{i18n>data}" />
+
+                <Label text="{i18n>event}" />
+                <Select items="{data>/events}" id="eventSelect" >
+                    <core:Item key="{data>id}" text="{data>name}" />
+                </Select>
+
+                <Label text="{i18n>date}" />
+                <DatePicker
+                        value="{printOptions>/date}" />
+
+                <Label text="{i18n>xp}" />
+                <Slider
+                        value="{printOptions>/xp}"
+                        max="12"
+                        inputsAsTooltips="true"
+                        enableTickmarks="true"
+                        class="sapUiSmallMarginBottom" />
+
+                <Label text="{i18n>treasureBundles}" />
+                <Slider
+                        value="{printOptions>/treasureBundles}"
+                        max="10"
+                        inputsAsTooltips="true"
+                        enableTickmarks="true"
+                        class="sapUiSmallMarginBottom" />
+
+                <Label text="{i18n>fame}" />
+                <Slider
+                        value="{printOptions>/fame}"
+                        max="10"
+                        inputsAsTooltips="true"
+                    enableTickmarks="true"
+                        class="sapUiSmallMarginBottom" />
+
+                <Label text="{i18n>reputation}" />
+                <Slider
+                        value="{printOptions>/reputation}"
+                        max="10"
+                        inputsAsTooltips="true"
+                        enableTickmarks="true"
+                        class="sapUiSmallMarginBottom" />
+                <Label text="{i18n>additionalWithoutPlayerData}" />
+                <Switch type="AcceptReject" state="{printOptions>/additionalSheet}" />
+            </form:SimpleForm>
+            <Table
+                    mode="Delete"
+                    delete="deleteCharacterFromSession"
+                    items="{printOptions>/players}" >
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="{i18n>players}" level="H2" />
+                        <ToolbarSpacer />
+                        <Button
+                                icon="sap-icon://add"
+                                press="addPlayerToSession" />
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column
+                            width="12em">
+                        <Text text="{i18n>player}" />
+                    </Column>
+                    <Column
+                            demandPopin="true">
+                        <Text text="{i18n>character}" />
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>gm}" />
+                    </Column>
+                </columns>
+                <items>
+                <ColumnListItem>
+                    <cells>
+                        <ObjectIdentifier
+                                title="{'parts': [{'path': 'printOptions>'}, {'path': 'data>/players'}], formatter: '.formatPlayerTitle'}"
+                                text="{'parts': [{'path': 'printOptions>'}, {'path': 'data>/players'}], formatter: '.formatPlayerId'}" />
+                        <Button
+                                icon="sap-icon://synchronize"
+                                text="{'parts': [{'path': 'printOptions>'}, {'path': 'data>/players'}], formatter: '.formatCharacterButtonText'}"
+                                press=".changeCharacter" />
+                        <SegmentedButton selectedKey="{printOptions>type}" >
+                            <items>
+                                <SegmentedButtonItem text="{i18n>gm}" key="gm" />
+                                <SegmentedButtonItem text="{i18n>player}" key="player" />
+                            </items>
+                        </SegmentedButton>
+                        <ToolbarSpacer/>
+                    </cells>
+                </ColumnListItem>
+                </items>
+            </Table>
+            <unified:FileUploader
+                    uploadUrl = ""
+                    buttonText = "{i18n>uploadChronicleTemplateAndCreateSheets}"
+                    fileType = "pdf"
+                    buttonOnly = "true"
+                    icon = "sap-icon://upload"
+                    class="sapUiMediumMargin"
+                    change = ".createSheets" />
+        </VBox>
+        <footer>
+            <core:Fragment fragmentName="com.lonwyr.PathfinderChronicler.fragments.NavigationFooter" type="XML" />
+        </footer>
+    </Page>
+</mvc:View>

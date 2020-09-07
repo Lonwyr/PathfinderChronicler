@@ -1,0 +1,18 @@
+<core:FragmentDefinition
+        xmlns="sap.m"
+        xmlns:core="sap.ui.core" >
+    <SelectDialog
+            id="addPlayer"
+            title="{i18n>addPlayer}"
+            search=".search"
+            confirm=".addPlayer"
+            items="{data>/players}">
+        <StandardListItem
+                title="{data>name}"
+                description="{data>id}"
+                visible="{
+                parts: [{path: 'data>id'}, {path: 'printOptions>/players'}],
+                formatter: '.formatAddPlayerVisibility'}"
+                type="Active" />
+    </SelectDialog>
+</core:FragmentDefinition>

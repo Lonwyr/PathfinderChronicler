@@ -1,0 +1,17 @@
+{
+  "additionalSheet": false,
+  "date": "9/1/2020",
+  "treasureBundles": 10,
+  "fame": 4,
+  "reputation": 2,
+  "xp": 4,
+  "players": [{
+    "playerId": "115458",
+    "characterId": "2001",
+    "type": "gm"
+  },{
+    "playerId": "134143",
+    "characterId": "2001",
+    "type": "player"
+  }]
+}

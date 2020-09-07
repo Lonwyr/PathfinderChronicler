@@ -1,0 +1,8 @@
+.dataMainGrid,
+.dataMainGrid > div {
+    height: 100%;
+}
+
+.addCharacterButton {
+    width: 100%;
+}
