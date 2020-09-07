@@ -22,6 +22,7 @@
                 </f:layoutData>
                 <f:header>
                     <card:Header
+                            title="{i18n>createNew}"
                             iconSrc="sap-icon://add"
                             press=".openAddEvent" />
                 </f:header>

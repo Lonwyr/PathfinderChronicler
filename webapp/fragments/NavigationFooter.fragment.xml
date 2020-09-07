@@ -6,7 +6,7 @@
         <ToolbarSpacer/>
         <SegmentedButton selectedKey="{navigation>/}" selectionChange=".navigate" >
             <items>
-                <SegmentedButtonItem text="{i18n>info}" key="master" />
+                <SegmentedButtonItem text="{i18n>info}" key="welcome" />
                 <SegmentedButtonItem text="{i18n>maintainEvents}" key="maintainEvents" />
                 <SegmentedButtonItem text="{i18n>maintainPlayers}" key="maintainPlayers" />
                 <SegmentedButtonItem text="{i18n>createSheets}" key="createSheets" />

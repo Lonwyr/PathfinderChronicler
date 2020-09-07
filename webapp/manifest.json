@@ -116,9 +116,9 @@
       },
       "routes": [
         {
-          "name": "master",
+          "name": "welcome",
           "pattern": "",
-          "target": ["master"]
+          "target": ["welcome"]
         },
         {
           "name": "maintainEvents",
@@ -137,10 +137,10 @@
         }
       ],
       "targets": {
-        "master": {
+        "welcome": {
           "viewType": "XML",
-          "viewId": "master",
-          "viewName": "Master",
+          "viewId": "welcome",
+          "viewName": "Welcome",
           "viewLevel": 1
         },
         "maintainEvents": {

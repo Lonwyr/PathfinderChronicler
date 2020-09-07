@@ -4,7 +4,7 @@ sap.ui.define([
 ], function (BaseController) {
 	"use strict";
 
-	return BaseController.extend("com.lonwyr.PathfinderChronicler.controller.Master", {
+	return BaseController.extend("com.lonwyr.PathfinderChronicler.controller.Welcome", {
 		onInit: async function () {
 
 		}
