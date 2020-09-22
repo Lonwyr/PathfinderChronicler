@@ -25,42 +25,60 @@
                         value="{printOptions>/date}" />
 
                 <Label text="{i18n>xp}" />
-                <Slider
+                <SegmentedButton selectedKey="{printOptions>/xp}"
+                                 class="sapUiSmallMarginBottom" >
+                    <items>
+                        <SegmentedButtonItem text="{i18n>quest}" key="1" />
+                        <SegmentedButtonItem text="{i18n>scenario}" key="4" />
+                        <SegmentedButtonItem text="{i18n>quest}" key="12" />
+                    </items>
+                </SegmentedButton>
                         value="{printOptions>/xp}"
                         max="12"
+                        width="100px"
                         inputsAsTooltips="true"
-                        enableTickmarks="true"
-                        class="sapUiSmallMarginBottom" />
+                        enableTickmarks="true" />
+
+                <Label text="{i18n>scenario}" />
+                <Select items="{scenarios>/scenarios}" selectedKey="{printOptions>/rewardSectionFactor}" >
+                    <core:Item key="{scenarios>factor}" text="{scenarios>title}" />
+                </Select>
 
                 <Label text="{i18n>treasureBundles}" />
-                <Slider
+                <StepInput
                         value="{printOptions>/treasureBundles}"
                         max="10"
+                        width="100px"
+                        change=".treasureBundlesChanged"
                         inputsAsTooltips="true"
                         enableTickmarks="true"
                         class="sapUiSmallMarginBottom" />
 
                 <Label text="{i18n>fame}" />
-                <Slider
+                <StepInput
                         value="{printOptions>/fame}"
                         max="10"
+                        width="100px"
                         inputsAsTooltips="true"
                     enableTickmarks="true"
                         class="sapUiSmallMarginBottom" />
 
                 <Label text="{i18n>reputation}" />
-                <Slider
+                <StepInput
                         value="{printOptions>/reputation}"
                         max="10"
+                        width="100px"
                         inputsAsTooltips="true"
                         enableTickmarks="true"
                         class="sapUiSmallMarginBottom" />
                 <Label text="{i18n>additionalWithoutPlayerData}" />
                 <Switch type="AcceptReject" state="{printOptions>/additionalSheet}" />
+                <Label text="{i18n>GmSheet}" />
+                <Switch type="AcceptReject" state="{printOptions>/printGmSheet}" />
             </form:SimpleForm>
             <Table
                     mode="Delete"
-                    delete="deleteCharacterFromSession"
+                    delete="removePlayerFromSession"
                     items="{printOptions>/players}" >
                 <headerToolbar>
                     <Toolbar>
@@ -83,6 +101,12 @@
                     <Column>
                         <Text text="{i18n>gm}" />
                     </Column>
+                    <Column>
+                        <Text text="{i18n>gpGained}" />
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>income}" />
+                    </Column>
                 </columns>
                 <items>
                 <ColumnListItem>
@@ -100,7 +124,8 @@
                                 <SegmentedButtonItem text="{i18n>player}" key="player" />
                             </items>
                         </SegmentedButton>
-                        <ToolbarSpacer/>
+                        <Text text="{'parts': [{'path': 'printOptions>characterLevel'}, {'path': 'printOptions>/treasureBundles'}], formatter: '.formatTreasureBundles'}" />
+                        <Input value="{printOptions>income}" />
                     </cells>
                 </ColumnListItem>
                 </items>

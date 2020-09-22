@@ -12,10 +12,11 @@
                 <Label text="{i18n>id}" />
                 <Input value="{data>id}" />
                 <Label text="{i18n>level}" />
-                <Slider
+                <StepInput
                         value="{data>level}"
                         min="1"
                         max="20"
+                        width="100px"
                         inputsAsTooltips="true"
                         enableTickmarks="true"
                         class="sapUiSmallMarginBottom" />

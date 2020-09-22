@@ -89,8 +89,12 @@ sap.ui.define([
 
 	}
 
-	function addRewardTexts(helveticaFont, page, xp, bundleValues, level, treasureBundles, fame) {
+	function addRewardTexts(helveticaFont, page, xp, rewardSectionFactor, bundleValues, level, treasureBundles, income, fame) {
 		const rewardSectionX = 525
+
+		if (Number.isNaN(rewardSectionFactor)) {
+			rewardSectionFactor = 1;
+		}
 
 		if (xp) {
 			drawCenteredText(
@@ -100,7 +104,7 @@ sap.ui.define([
 					text: xp.toString(),
 					size: 12,
 					x: rewardSectionX,
-					y: 460
+					y: 460 * rewardSectionFactor
 				}
 			)
 		}
@@ -115,7 +119,20 @@ sap.ui.define([
 					text: gp.toString(),
 					size: 12,
 					x: rewardSectionX,
-					y: 350
+					y: 350 * rewardSectionFactor
+				}
+			)
+		}
+
+		if (income) {
+			drawCenteredText(
+				helveticaFont,
+				page,
+				{
+					text: income,
+					size: 12,
+					x: rewardSectionX,
+					y: 313 * rewardSectionFactor
 				}
 			)
 		}
@@ -128,7 +145,7 @@ sap.ui.define([
 					text: fame.toString(),
 					size: 12,
 					x: rewardSectionX,
-					y: 130
+					y: 130 * rewardSectionFactor
 				}
 			)
 		}
@@ -187,7 +204,7 @@ sap.ui.define([
 		}
 	}
 
-	async function createChronicleForCharacter(PDFDocument, sFileContent, StandardFonts, data, player, printOptions, treasures, event, gm) {
+	async function createChronicleForCharacter(sourceFileName, PDFDocument, sFileContent, StandardFonts, data, player, printOptions, treasures, event, gm) {
 		const pdfDoc = await PDFDocument.load(sFileContent, {ignoreEncryption: true})
 		// Embed the Helvetica font
 		const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
@@ -214,9 +231,11 @@ sap.ui.define([
 			helveticaFont,
 			page,
 			printOptions.xp,
+			Number.parseFloat(printOptions.rewardSectionFactor),
 			treasures.bundleValues,
 			characterData && characterData.level,
 			printOptions.treasureBundles,
+			player.income,
 			printOptions.fame
 		)
 		addGmTexts(
@@ -231,7 +250,28 @@ sap.ui.define([
 		const pdfBytes = await pdfDoc.save()
 
 		// Trigger the browser to download the PDF document
-		download(pdfBytes, "pdf-lib_modification_example.pdf", "application/pdf")
+		let fileName = "";
+
+		if (printOptions.date) {
+			const findSlashRegexp = new RegExp(/\//gm)
+			fileName += printOptions.date.replace(findSlashRegexp, ".") + " "
+		}
+
+		if (player) {
+			fileName += player.playerId
+			if (player.characterId) {
+				fileName += "-" + player.characterId
+			}
+		}
+
+		fileName += fileName ? " " : ""
+		fileName += sourceFileName
+
+		download(pdfBytes, fileName, "application/pdf")
+	}
+
+	function getTreasureBundleValueByLevel(level) {
+		return this.getModel("treasures").getProperty("/bundleValues")[level - 1];
 	}
 
 	return BaseController.extend("com.lonwyr.PathfinderChronicler.controller.CreateSheets", {
@@ -275,6 +315,13 @@ sap.ui.define([
 			return players.every(player => {return player.playerId !== playerId})
 		},
 
+		formatTreasureBundles: function (characterLevel, treasureBundles) {
+			if (!characterLevel || treasureBundles === undefined) {
+				return "-";
+			}
+			return getTreasureBundleValueByLevel.call(this, characterLevel) * treasureBundles
+		},
+
 		search: function (event) {
 			const value = event.getParameter("value")
 			const nameFilter = new Filter("name", FilterOperator.Contains, value)
@@ -290,17 +337,17 @@ sap.ui.define([
 		addPlayer: function (event) {
 			const bindingContext = event.getParameter("selectedItem").getBindingContext("data")
 			const bindingPath = bindingContext.getPath()
-			const playerId = bindingContext.getModel().getProperty(bindingPath).id
+			const player = bindingContext.getModel().getProperty(bindingPath)
 			let players = this.getModel("printOptions").getProperty("/players")
 			players.push({
-				playerId: playerId,
+				playerId: player.id,
 				characterId: undefined,
 				type: "player"
 			})
 			this.getModel("printOptions").setProperty("/players", players)
 		},
 
-		deleteCharacterFromSession: function (event) {
+		removePlayerFromSession: function (event) {
 			const list = event.getSource()
 			const item = event.getParameter("listItem")
 			const path = item.getBindingContext("printOptions").getPath()
@@ -344,10 +391,13 @@ sap.ui.define([
 		selectCharacter: function (event) {
 			const bindingContext = event.getParameter("selectedItem").getBindingContext("data")
 			const bindingPath = bindingContext.getPath()
-			const characterId = bindingContext.getModel().getProperty(bindingPath).id
+			const character = bindingContext.getModel().getProperty(bindingPath)
 			const printOptionsBindingPath = event.getSource().getCustomData()[0].getValue()
-			this.getModel("printOptions").setProperty(printOptionsBindingPath + "/characterId", characterId)
-			this.getModel("printOptions").updateBindings(true)
+
+			const printOptionsModel = this.getModel("printOptions");
+			printOptionsModel.setProperty(printOptionsBindingPath + "/characterId", character.id)
+			printOptionsModel.setProperty(printOptionsBindingPath + "/characterLevel", character.level);
+			printOptionsModel.updateBindings(true)
 		},
 
 		createSheets: function(oEvent) {
@@ -372,10 +422,10 @@ sap.ui.define([
 
 					printOptions.players.map(async (player) => {
 						// Load a PDFDocument from the existing PDF bytes
-						createChronicleForCharacter(PDFDocument, sFileContent, StandardFonts, data, player, printOptions, treasures, event, gm);
+						createChronicleForCharacter(file.name, PDFDocument, sFileContent, StandardFonts, data, player, printOptions, treasures, event, gm);
 					})
 					if (printOptions.additionalSheet) {
-						createChronicleForCharacter(PDFDocument, sFileContent, StandardFonts, data, {type: "player"}, printOptions, treasures, event, gm);
+						createChronicleForCharacter(file.name, PDFDocument, sFileContent, StandardFonts, data, {type: "player"}, printOptions, treasures, event, gm);
 					}
 
 				}

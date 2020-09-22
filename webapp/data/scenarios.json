@@ -1,0 +1,15 @@
+{
+  "positions": {
+    "xp": 460,
+    "gp": 350,
+    "income": 313,
+    "fame": 130
+  },
+  "scenarios": [{
+    "title": "default",
+    "factor": 1
+  }, {
+    "title": "1-18",
+    "factor": 1.1
+  }]
+}

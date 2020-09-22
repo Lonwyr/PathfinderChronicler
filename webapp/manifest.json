@@ -31,6 +31,10 @@
       "treasures": {
         "uri": "data/treasures.json",
         "type": "JSON"
+      },
+      "scenarios": {
+        "uri": "data/scenarios.json",
+        "type": "JSON"
       }
     }
   },
@@ -90,6 +94,10 @@
       "treasures": {
         "type": "sap.ui.model.json.JSONModel",
         "dataSource": "treasures"
+      },
+      "scenarios": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "scenarios"
       },
       "navigation": {
         "type": "sap.ui.model.json.JSONModel"
