@@ -33,11 +33,6 @@
                         <SegmentedButtonItem text="{i18n>quest}" key="12" />
                     </items>
                 </SegmentedButton>
-                        value="{printOptions>/xp}"
-                        max="12"
-                        width="100px"
-                        inputsAsTooltips="true"
-                        enableTickmarks="true" />
 
                 <Label text="{i18n>scenario}" />
                 <Select items="{scenarios>/scenarios}" selectedKey="{printOptions>/rewardSectionFactor}" >
