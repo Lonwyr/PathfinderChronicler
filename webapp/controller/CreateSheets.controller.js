@@ -253,9 +253,15 @@ sap.ui.define([
 		let fileName = "";
 
 		if (printOptions.date) {
-			const findSlashRegexp = new RegExp(/\//gm)
-			fileName += printOptions.date.replace(findSlashRegexp, ".") + " "
+			const dateSections = printOptions.date.split("/")
+
+			fileName += "20" + dateSections[2] + "-"
+			fileName += dateSections[1].length === 1 ? "0" : ""
+			fileName += dateSections[1] + "-"
+			fileName += dateSections[0].length === 1 ? "0" : ""
+			fileName += dateSections[0] + " "
 		}
+
 
 		if (player) {
 			fileName += player.playerId
